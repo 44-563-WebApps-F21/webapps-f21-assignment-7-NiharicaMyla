@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html> <head> 
+    <title>Wild Life Hunt</title>
+    <h2> Animals Hunt by Niharica Myla</h2>
+    <style>
+    .flex-container {
+      display: flex;  flex-direction:row;
+      background-color: rgb(26, 211, 180);
+  }
+
+.flex-container > div {  /*div children of the flex container*/
+  background-color: rgb(187, 229, 241); 
+  margin: 10px;  padding: 20px;  font-size: 30px;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) { 
+	 .flex-container{
+		 flex-direction:column;
+		 background-color: green;
+	  }
+	}
+</style>
+</head>
+
+<body>
+<div class="flex-container">
+<div>Click on the squares to search for wild life</div>   
+<div id="tries">Number of tries is zero.</div>  
+<div id="distance">Distance is unknown.</div>  
+</div>
+</body>
+</html>	
