@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html> <head> 
     <title>Wild Life Hunt</title>
-    <h2> Animals Hunt by Niharica Myla</h2>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
@@ -11,35 +10,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" 
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-    <style>
-    .flex-container {
-      display: flex;  flex-direction:row;
-      background-color: rgb(26, 211, 1225);
-  }
-
-.flex-container > div {  
-  background-color: rgb(187, 229, 241); 
+<style>
+    .container > div {
   margin: 10px;  padding: 20px;  font-size: 30px;
 }
 .t:hover {
     background-color: crimson;
 }
-/* Responsive layout */
-@media (max-width: 60px) { 
-	 .flex-container{
-		 flex-direction:column;
-		 background-color: green;
-	  }
-	}
+.r:hover {
+    background-color: rgb(245, 89, 198);
+}
+h2 {
+    background-color: rgb(10, 241, 241);
+    margin: 10px;  padding: 20px;  font-size: 30px;
+}
+
 </style>
 </head>
 
 <body>
-<div class="flex-container">
-<div class="text-center">Click on the squares to search for wild life</div>   
-<div id="tries" class="t">Number of tries is zero.</div>  
-<div id="distance">Distance is unknown.</div>  
+    <div class="container">
+        <h2 class="text-center"> Animals Hunt by Niharica Myla</h2>
+        <div class="row justify-content-around">
+        <div class="btn btn-success text-center mb-2 " style="font-size: larger; font-weight: bolder;">Click on the squares to search for wild life</div>   
+        <div class="btn btn-success text-center mb-2 " id="tries" style="font-size: larger; font-weight: bolder;" class="t">Number of tries is zero.</div>  
+        <div id="distance" style="font-size: larger; font-weight: bolder;" class="btn btn-success text-center mb-2 ">Distance is unknown.</div>  
+        <div class="btn btn-dark text-center mb-2 " style="font-size: larger; font-weight: bolder;" id="r" onclick="reset()">Reset</div>
+        </div>
 </div>
+
 <br>
 <div class="container-row justify-content-center">
     <div class="row ">
@@ -78,5 +77,63 @@
     
 </div>
 
+<script>
+    var ids = [];
+    var triesCount = 0;
+    var animalLocation = 13;
+    var AnimalDistance = "unknown"
+    for (var i = 0; i < 24; i++) {
+        ids.push("IMG." + i)
+    }
+    function reset() {
+        triesCount = 0;
+        animalLocation = Math.round( Math.random() * (23 - 0) + 0);
+        document.getElementById("tries").innerHTML = "Number of tries is zero";
+        AnimalDistance = "unknown"
+        document.getElementById("distance").innerHTML = "Distance is " + AnimalDistance;
+        for (var i = 0; i < 24; i++) {
+       
+        document.getElementById(ids[i]).src = "tree.jpg";
+    }
+       
+    }
+    function check(index) {
+        let id = ids[index];
+        if (index == animalLocation) {
+            document.getElementById(id).src = "hole.jpg";
+        } else {
+            document.getElementById(id).src = "animal.jpg";
+        }
+        triesCount++;
+        document.getElementById("tries").innerHTML = "Number of tries are " + triesCount;
+        AnimalDistance = distance(index, animalLocation);
+
+        document.getElementById("distance").innerHTML = "Distance is " + AnimalDistance;
+    }
+    function distance(pos1, pos2) {
+        var columm = 6;
+        var totalValue = pos1 <= animalLocation ? columm : -columm;
+        var VerticalDistance = 0;
+        var horizantalDistance = 0;
+        var minimumRange = Math.abs(animalLocation / columm) * columm;
+        var maximumRange = minimumRange + (columm)
+        while (true) {
+
+            Math.abs(animalLocation - pos1)
+            if (minimumRange <= pos1 && pos1 < maximumRange) {
+                horizantalDistance = Math.abs(animalLocation - pos1);
+                break;
+            }
+            else {
+                pos1 = pos1 + totalValue;
+                VerticalDistance = VerticalDistance + 1;
+            }
+        }
+
+        return Math.max(VerticalDistance, horizantalDistance);
+    }
+
+
+</script>
 </body>
 </html>	
